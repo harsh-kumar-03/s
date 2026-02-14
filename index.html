@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💖</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #ffd6e8, #ff5e8e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+/* Main container */
+.container {
+    z-index: 10;
+    max-width: 90%;
+}
+
+/* Bear bounce */
+.bear {
+    font-size: 60px;
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Heading */
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    margin: 20px 0;
+}
+
+.subtitle {
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.closing {
+    margin-top: 20px;
+    font-weight: 300;
+}
+
+/* Buttons */
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+#yesBtn {
+    background: linear-gradient(45deg, #ff1744, #ff5252);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255,0,0,0.6);
+    transition: 0.3s;
+    position: relative;
+    z-index: 5;
+}
+
+#yesBtn:hover {
+    box-shadow: 0 0 25px rgba(255,0,0,1);
+    transform: scale(1.05);
+}
+
+#noBtn {
+    background: white;
+    color: #ff1744;
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: 2px solid #ff1744;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+    opacity: 0;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* Celebration */
+.celebration {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(to bottom right, #ffd6e8, #ff5e8e);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    display: none;
+}
+
+.celebration h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.spin {
+    font-size: 60px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    opacity: 0.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="mainContent">
+    <div class="bear">🐼 </div>
+    <h1>Will You Be My Valentine, Sezal Dhiman?</h1>
+    <p class="subtitle">💞 You are my favourite chapter in this beautiful story of life..</p>
+    <p class="subtitle">💞 Falling for you was the easiest thing my heart has ever done</p>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <p class="closing"> 💞 Every love story is beautiful, but ours is my favourite</p>
+    
+    <p class="closing"> 😒 Kahi jaya kra kr bta dia kr koi wait krta rhta h <b>PAGLI</b> uska to khayal rkha kr</p>
+</div>
+
+<div class="celebration" id="celebration">
+    <h2>Yayyyy!! 💖</h2>
+    <div class="spin">😘</div>
+    <p style="margin-top:20px;font-size:20px;">I knew you'd say yes...because my heart has always belonged to you </p>
+    <p style="margin-top:20px;font-size:20px;">💞 From this moment on, I promise to love you louder, hold you tighter, and choose you forever.</p>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const messages = [
+    "Nope, not an option!",
+    "Try again!",
+    "You sure about that?",
+    "Not happening!",
+    "Think again!"
+];
+let msgIndex = 0;
+
+// Floating Hearts
+let hearts = [];
+for (let i = 0; i < 15; i++) {
+    createHeart();
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (20 + Math.random() * 30) + "px";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(heart);
+    hearts.push(heart);
+}
+
+// Move No button safely
+function moveNoButton() {
+    const yesRect = yesBtn.getBoundingClientRect();
+    const padding = 20;
+    let x, y;
+
+    do {
+        x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    } while (
+        x < yesRect.right + padding &&
+        x + noBtn.offsetWidth > yesRect.left - padding &&
+        y < yesRect.bottom + padding &&
+        y + noBtn.offsetHeight > yesRect.top - padding
+    );
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    noBtn.innerText = messages[msgIndex];
+    msgIndex = (msgIndex + 1) % messages.length;
+}
+
+noBtn.addEventListener("click", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
+
+// Yes click celebration
+yesBtn.addEventListener("click", () => {
+    document.getElementById("mainContent").style.display = "none";
+    hearts.forEach(h => h.remove());
+    document.getElementById("celebration").style.display = "flex";
+    createConfetti();
+});
+
+function createConfetti() {
+    for (let i = 0; i < 120; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = 
+            "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+        confetti.style.animation = `fall ${2 + Math.random()*3}s linear forwards`;
+        document.body.appendChild(confetti);
+    }
+}
+
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+    }
+}`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
